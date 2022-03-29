@@ -35,30 +35,10 @@
              */
             try
             {
-                let _ = (this), __ = $(_), name = __.attr('name'), method = __.attr('method'), valid = false, success;
-                // * The switching
-                switch (name)
-                {
-                }
-                // * Debugging logs
-                console.log(__.attr('action') + ' < - action, name=' + this.name)
-                /**
-                 * Fire Ajax if valid
-                 */
-                if (valid)
-                {
-                    $.ajax({
-                        type:        'POST', url: __.attr('action'), data: __.serialize(), success: success, error: function (response)
-                        {
-                            console.log('error: ');
-                            console.log(response);
-                        }, dataType: 'json'
-                    });
-                }
             }
             catch (_e)
             {
-                console.log(_e)
+                // console.log(_e)
             }
             // * prevent default we are using Ajax
             e.preventDefault();
