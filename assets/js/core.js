@@ -30,55 +30,39 @@
     {
         $('form').submit(function (e)
         {
-            let success, _ = (this), __ = $(_), valid = false;
-            // *
-            console.log(__.attr('action') + ' < - action, name=' + this.name)
-            switch (this.name)
-            {
-                case 'signup':
-                {
-                    let email = _.email.value, email_pattern = $(email).data('pattern');
-                    // valid       = license.value.match(pattern);
-                    success   = function (response)
-                    {
-                        console.log('success: ');
-                        console.log(response);
-                        __.find('.valid-feedback').append(response.valid);
-                    };
-                    console.log(__.attr('action') + ' < - action, name=' + this.name)
-                }
-                    break;
-                case 'form-license':
-                {
-                    let license = _.licensed, pattern = license.pattern;
-                    // valid       = license.value.match(pattern);
-                    success     = function (response)
-                    {
-                        console.log('success: ');
-                        console.log(response);
-                        __.find('.valid-feedback').append(response.valid);
-                    };
-                    console.log(__.attr('action') + ' < - action, name=' + this.name)
-                }
-                    break;
-                default:
-                    break;
-            }
             /**
-             * Fire Ajax if valid
+             * Try because we don't want to land at Ajax url if we are slammed like Putin
              */
-            if (valid)
+            try
             {
-                $.ajax({
-                    type:        'POST', url: __.attr('action'), data: __.serialize(), success: success, error: function (response)
-                    {
-                        console.log('error: ');
-                        console.log(response);
-                    }, dataType: 'json'
-                });
+                let _ = (this), __ = $(_), name = __.attr('name'), method = __.attr('method'), valid = false, success;
+                // * The switching
+                switch (name)
+                {
+                }
+                // * Debugging logs
+                console.log(__.attr('action') + ' < - action, name=' + this.name)
+                /**
+                 * Fire Ajax if valid
+                 */
+                if (valid)
+                {
+                    $.ajax({
+                        type:        'POST', url: __.attr('action'), data: __.serialize(), success: success, error: function (response)
+                        {
+                            console.log('error: ');
+                            console.log(response);
+                        }, dataType: 'json'
+                    });
+                }
+            }
+            catch (_e)
+            {
+                console.log(_e)
             }
             // * prevent default we are using Ajax
             e.preventDefault();
+            return false;
         });
         $('[data-tab-target]').click(function ()
         {
