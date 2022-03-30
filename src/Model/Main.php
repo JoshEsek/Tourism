@@ -1,6 +1,7 @@
 <?php
   namespace Roli\Model;
 
+  use Roli\Users\User;
   use Roli\Utilities\Utility as Util;
   /**
    * Main operational class
@@ -8,12 +9,14 @@
   class Main
   {
     protected Option $option;
+    protected User   $user;
     /**
      * Mail construct
      */
     public function __construct()
     {
       $this->option = new Option();
+      $this->user   = new User();
     }
     /**
      * @inheritDoc
@@ -152,6 +155,7 @@
       return $_html;
     }
     protected function display_user_menu()
+    : string
     {
       return Util::user_is_login() ? '
               <!-- Example single danger button -->
